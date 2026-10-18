@@ -51,3 +51,15 @@ run: $(EXECUTABLE)
 clean:
 	rm -rf $(BUILD_DIR)
 
+# detect optional main
+MAIN_SRC := $(wildcard $(SRC_DIR)/main.cpp)
+ifeq ($(strip $(MAIN_SRC)),)
+  MAIN_OBJ :=
+  EXECUTABLE :=
+else
+  MAIN_OBJ := $(BUILD_DIR)/main.o
+  EXECUTABLE := $(BUILD_DIR)/main
+endif
+
+.PHONY: all
+all: test
